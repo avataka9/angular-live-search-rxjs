@@ -1,0 +1,42 @@
+<form>
+  <fieldset>
+    <legend>
+      field for searching notes
+    </legend>
+    <input
+      type="text"
+      [formControl]="input"
+      placeholder="what do you search?"
+    />
+    <div>
+      <div>
+        <label
+          ><input
+            type="radio"
+            name="type"
+            value="words"
+            [(ngModel)]="type"
+            (change)="radioClicked()"
+          />words</label
+        >
+      </div>
+
+      <div>
+        <label
+          ><input
+            type="radio"
+            name="type"
+            value="entrys"
+            [(ngModel)]="type"
+            (change)="radioClicked()"
+          />entrys</label
+        >
+      </div>
+    </div>
+
+    <label>
+      <input type="checkbox" [formControl]="colorize" /> Colorize results
+    </label>
+    <input type="button" value="clear" (click)="clearInput()" />
+  </fieldset>
+</form>

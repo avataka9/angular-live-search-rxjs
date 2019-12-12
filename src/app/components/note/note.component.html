@@ -1,0 +1,29 @@
+<div
+  style="display: flex; border: 1px solid rgb(150, 150, 150); margin: 5px 0;"
+>
+  <ng-container *ngIf="filtered && colorized; else elseTemplate">
+    <div style="flex: 1 0;" [innerHTML]="colorizedHtml"></div>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <div style="flex: 1 0;">
+      {{ note.text }}
+    </div>
+  </ng-template>
+
+  <div style="flex-basis: 100px;">
+    <input
+      type="button"
+      value="edit"
+      style="background: #6e6e6e;  color: white;"
+      (click)="edit.emit(note)"
+    />
+  </div>
+  <div style="flex-basis: 100px;">
+    <input
+      type="button"
+      value="delete"
+      style="background: #790000; color: white;"
+      (click)="delete.emit(note.id)"
+    />
+  </div>
+</div>

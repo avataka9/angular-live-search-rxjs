@@ -1,0 +1,13 @@
+<fieldset>
+  <legend>{{ title }} notes list</legend>
+  <div>
+    <app-note
+      *ngFor="let note of notes$ | async; trackBy: notesTrackFn"
+      [note]="note"
+      (delete)="delete.emit($event)"
+      (edit)="edit.emit($event)"
+      [filtered]="filtered"
+      [colorized]="colorized"
+    ></app-note>
+  </div>
+</fieldset>

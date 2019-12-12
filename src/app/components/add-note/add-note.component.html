@@ -1,0 +1,9 @@
+<form (ngSubmit)="addNote.emit(note.value); note.value = ''">
+  <fieldset>
+    <legend>
+      field for adding notes
+    </legend>
+    <input type="text" #note placeholder="what do you want to note?" />
+    <input type="submit" value="add" />
+  </fieldset>
+</form>
