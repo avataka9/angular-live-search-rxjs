@@ -46,20 +46,33 @@ export class StoreService {
           ...note
         };
         this.notes = [...this.notes];
+        console.log('success added');
       },
       err => {
         console.error(err);
-        this.removeNote(tmpId);
+        this.removeNote(tmpId, false);
       }
     );
   }
 
-  public removeNote(id: string, serverRemove = false): void {
+  public removeNote(id: string, serverRemove = true): void {
+    const tmpNote = this.notes.find(n => n.id === id);
     this.notes = this.notes.filter(note => note.id !== id);
+
+    if (serverRemove) {
+      this.http.delete(`${environment.apiUrl}/notes/${id}`).subscribe(
+        response => {
+          console.log('delete success');
+        },
+        error => {
+          console.log(error);
+          this.notes = [...this.notes, tmpNote];
+        }
+      );
+    }
   }
 
   public editNote(text: string, id: string): void {
-    console.log('edit ', text, ' ', id);
     const tmpNote = this.notes.find(note => note.id === id);
     if (!tmpNote) {
       return;
@@ -71,5 +84,23 @@ export class StoreService {
       text
     };
     this.notes = [...this.notes];
+
+    const body = {
+      text
+    };
+
+    this.http.put(`${environment.apiUrl}/notes/${id}`, body).subscribe(
+      response => {
+        console.log('edit success');
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+        this.notes[index] = {
+          ...tmpNote
+        };
+        this.notes = [...this.notes];
+      }
+    );
   }
 }

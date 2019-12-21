@@ -1,3 +1,4 @@
+import { isNull } from 'util';
 import { AppService } from './services/app.service';
 import { INote } from './models/note';
 import { Component } from '@angular/core';
@@ -22,7 +23,11 @@ export class AppComponent {
   }
 
   onSearch(text) {
-    this.service.searchString = text;
+    if (isNull(text)) {
+      this.service.searchString = '';
+    } else {
+      this.service.searchString = text;
+    }
   }
 
   onSearchType(type) {
